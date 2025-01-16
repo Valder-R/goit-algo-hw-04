@@ -5,8 +5,8 @@ def total_salary(path):
             total = 0
             for line in lines :
                 name, salary = line.split(",")
-                total += int(salary)
-            return total, total//len(lines)
+                total += float(salary)
+            return total, total/len(lines)
 
     except Exception as e:
         print(f"{e} with file")

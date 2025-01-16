@@ -6,7 +6,7 @@ def parse_input(user_input):
 
 def add_contact(args, contacts):
     name, phone = args
-    if contacts.__contains__(name):
+    if name in contacts.keys():
         return "Contact with this name already exists"
     contacts[name] = phone
     save_contact(name, phone)
@@ -30,7 +30,7 @@ def get_contacts():
 
 def change_contact(args, contacts):
     name, phone = args
-    if not contacts.__contains__(name):
+    if not name in contacts.keys():
         return "There is no contact with this name"
     contacts[name] = phone
     save_changes(name, contacts)
@@ -47,22 +47,16 @@ def save_changes(name, contacts):
 
 def show_phone(args, contacts):
     name = args[0]
-    if not contacts.__contains__(name):
+    if not name in contacts.keys():
         return "There is no contact with this name"
     return f"Телефон: {contacts[name]}"
 
 
 def show_all(contacts):
+    listOfContacts = list()
     for key, value in contacts.items():
-        print(f"{key}, тел: {value}")
-
-
-def get_commands():
-    print("'close', 'exit' to stop the program")
-    print("'add' to create new contact")
-    print("'change' to change a contact")
-    print("'phone' to see a phone number of person")
-    print("'all' to print all contacts")
+       listOfContacts.append(f"{key}, тел: {value}")
+    return listOfContacts
 
 
 def main():
@@ -84,9 +78,15 @@ def main():
         elif command == "phone":
             print(show_phone(args, contacts))
         elif command == "all":
-            show_all(contacts)
+            listOfContacts = show_all(contacts)
+            for item in listOfContacts:
+                print(item)
         elif command == "help":
-            get_commands()
+            print("'close', 'exit' to stop the program")
+            print("'add' to create new contact")
+            print("'change' to change a contact")
+            print("'phone' to see a phone number of person")
+            print("'all' to print all contacts")
         else:
             print("Invalid command.")
             print("Try 'help' command")
